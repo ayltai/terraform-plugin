@@ -1,0 +1,133 @@
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish'     version '0.12.0'
+    id 'checkstyle'
+    id 'com.github.spotbugs'           version '4.4.1'
+    id 'org.sonarqube'                 version '3.0'
+    id 'jacoco'
+    id 'com.github.ben-manes.versions' version '0.28.0'
+}
+
+group 'com.github.ayltai'
+version '0.1.0'
+
+sourceCompatibility = 8
+targetCompatibility = 8
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://dl.bintray.com/mockito/maven' }
+}
+
+ext {
+    junitVersion  = '5.6.2'
+}
+
+dependencies {
+    testImplementation 'org.mockito:mockito-core:3.3.12'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly    "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+//region Checkstyle configurations
+
+checkstyle {
+    toolVersion    = '8.33'
+    configFile     = rootProject.file('./checkstyle.xml')
+    ignoreFailures = true
+    showViolations = true
+}
+
+tasks.withType(Checkstyle) {
+    source = 'src/main/java'
+
+    include '**/*.java'
+    exclude '**/*Test.java'
+
+    reports {
+        xml.enabled      = false
+        html.enabled     = true
+        xml.destination  = file("$project.buildDir/reports/checkstyle/checkstyle-output.xml")
+        html.destination = file("$project.buildDir/reports/checkstyle/checkstyle-output.html")
+    }
+}
+
+//endregion
+
+//region SpotBugs configurations
+
+spotbugs {
+    toolVersion.set('4.0.3')
+    ignoreFailures.set(true)
+    excludeFilter.set(file('./spotbugs-exclude.xml'))
+
+    effort      = 'max'
+    reportLevel = 'medium'
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
+    reports {
+        xml.enabled  = false
+        html.enabled = true
+    }
+}
+
+//endregion
+
+//region JaCoCo configurations
+
+jacoco {
+    toolVersion = '0.8.5'
+}
+
+jacocoTestReport {
+    dependsOn 'test'
+
+    reports {
+        xml.enabled  = true
+        html.enabled = true
+    }
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes                 = [ 'jdk.internal.*', ]
+}
+
+//endregion
+
+sonarqube {
+    properties {
+        property 'sonar.host.url',     'https://sonarcloud.io'
+        property 'sonar.organization', 'ayltai'
+        property 'sonar.projectKey',   'ayltai_terraform-plugin'
+        property 'sonar.login',        System.getenv('SONAR_TOKEN')
+    }
+}
+
+//region Gradle plugin publication configuration
+
+pluginBundle {
+    website = 'https://github.com/ayltai/terraform-plugin'
+    vcsUrl  = 'https://github.com/ayltai/terraform-plugin.git'
+    tags    = [ 'terraform', 'provision', ]
+}
+
+gradlePlugin {
+    plugins {
+        nativeImage {
+            id                  = 'com.github.ayltai.terraform-plugin'
+            displayName         = 'Terraform Gradle plugin'
+            description         = 'Support infrastructure provisioning using Terraform'
+            implementationClass = 'com.github.ayltai.gradle.plugin.TerraformPlugin'
+        }
+    }
+}
+
+//endregion

@@ -95,16 +95,16 @@ public class DownloadTask extends DefaultTask {
     protected String getPlatform() {
         if (OperatingSystem.current().isMacOsX()) return OperatingSystem.current().getNativePrefix();
 
+        if (OperatingSystem.current().isLinux()) return "linux";
+
+        if (OperatingSystem.current().isWindows()) return "windows";
+
         if (OperatingSystem.current().isUnix()) {
             if (OperatingSystem.current().equals(OperatingSystem.SOLARIS)) return OperatingSystem.current().getFamilyName();
             if (OperatingSystem.current().equals(OperatingSystem.FREE_BSD)) return "freebsd";
 
             return "openbsd";
         }
-
-        if (OperatingSystem.current().isLinux()) return "linux";
-
-        if (OperatingSystem.current().isWindows()) return "windows";
 
         DownloadTask.LOGGER.warn(String.format(Locale.US, "Failed to determine the type of OS: %s", OperatingSystem.current().getFamilyName()));
 
@@ -121,8 +121,6 @@ public class DownloadTask extends DefaultTask {
         if ("i386".equals(architecture) || "x86".equals(architecture)) return "386";
         if ("x86_64".equals(architecture)) return DownloadTask.AMD64;
         if (architecture.startsWith(DownloadTask.ARM)) return DownloadTask.ARM;
-
-        DownloadTask.LOGGER.warn(String.format(Locale.US, "Failed to determine the type of architecture: %s", architecture));
 
         return DownloadTask.AMD64;
     }

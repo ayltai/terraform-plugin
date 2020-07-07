@@ -102,7 +102,13 @@ public class DownloadTask extends DefaultTask {
             return "openbsd";
         }
 
-        return OperatingSystem.current().getFamilyName();
+        if (OperatingSystem.current().isLinux()) return "linux";
+
+        if (OperatingSystem.current().isWindows()) return "windows";
+
+        DownloadTask.LOGGER.warn(String.format(Locale.US, "Failed to determine the type of OS: %s", OperatingSystem.current().getFamilyName()));
+
+        return "linux";
     }
 
     @Nonnull
@@ -115,6 +121,8 @@ public class DownloadTask extends DefaultTask {
         if ("i386".equals(architecture) || "x86".equals(architecture)) return "386";
         if ("x86_64".equals(architecture)) return DownloadTask.AMD64;
         if (architecture.startsWith(DownloadTask.ARM)) return DownloadTask.ARM;
+
+        DownloadTask.LOGGER.warn(String.format(Locale.US, "Failed to determine the type of architecture: %s", architecture));
 
         return DownloadTask.AMD64;
     }

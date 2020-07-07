@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: spotbugs
-          path: build/reports/sportbugs/
+          path: build/reports/spotbugs/
   test:
     runs-on: ubuntu-20.04
     steps:

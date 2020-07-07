@@ -23,14 +23,8 @@ public class PlanOptions extends ExecuteOptions {
 
     /**
      * Returns a detailed exit code when the command exits if {@code true} is specified.
-     * <p>
-     *     When {@code true} is specified, this changes the exit codes and their meanings to provide more granular information about what the resulting plan contains:
-     *     <ul>
-     *         <li>{@code 0} = Succeeded with empty diff (no changes)</li>
-     *         <li>{@code 1} = Error</li>
-     *         <li>{@code 2} = Succeeded with non-empty diff (changes present)</li>
-     *     </ul>
-     * </p>
+     * <p>When {@code true} is specified, this changes the exit codes and their meanings to provide more granular information about what the resulting plan contains:
+     * <p>{@code 0} = Succeeded with empty diff (no changes)<br>{@code 1} = Error<br>{@code 2} = Succeeded with non-empty diff (changes present)</p>
      * <p>Default is {@code false}.</p>
      * @param detailedExitCode {@code true} to return a detailed exit code when the command exits.
      */

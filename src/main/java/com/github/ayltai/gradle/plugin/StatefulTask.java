@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.annotation.Nonnull;
 
+import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.provider.Property;
 import org.gradle.api.resources.ResourceException;
@@ -29,11 +30,12 @@ public abstract class StatefulTask extends CliTask {
 
     //region Properties
 
-    protected final Property<String>  backend;
-    protected final Property<String>  apiToken;
-    protected final Property<Boolean> input;
-    protected final Property<Boolean> lock;
-    protected final Property<Integer> lockTimeout;
+    protected final Property<String>    backend;
+    protected final Property<String>    apiToken;
+    protected final Property<Boolean>   input;
+    protected final Property<Boolean>   lock;
+    protected final Property<Integer>   lockTimeout;
+    protected final RegularFileProperty configFile;
 
     //endregion
 
@@ -43,6 +45,7 @@ public abstract class StatefulTask extends CliTask {
         this.input       = this.getProject().getObjects().property(Boolean.class);
         this.lock        = this.getProject().getObjects().property(Boolean.class);
         this.lockTimeout = this.getProject().getObjects().property(Integer.class);
+        this.configFile  = this.getProject().getObjects().fileProperty();
     }
 
     //region Gradle task inputs and outputs
@@ -107,6 +110,8 @@ public abstract class StatefulTask extends CliTask {
         } catch (final IOException e) {
             throw new ResourceException("Failed to save credentials to " + this.getCredentials().getAbsolutePath(), e);
         }
+
+        this.environment("TF_CLI_CONFIG_FILE", this.configFile.isPresent() ? this.configFile.getAsFile().get().getAbsolutePath() : this.getCredentials().getAbsolutePath());
 
         super.exec();
     }

@@ -59,13 +59,10 @@ jobs:
         with:
           name: coverage
           path: build/reports/jacoco/test/html/
-        if: always()
       - name: Run SonarQube scanner
         run: ./gradlew sonarqube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: always()
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v1
-        if: always()

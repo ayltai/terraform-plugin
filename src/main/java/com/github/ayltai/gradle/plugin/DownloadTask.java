@@ -44,6 +44,8 @@ public class DownloadTask extends DefaultTask {
 
     private static final String DOWNLOAD_URL        = "https://releases.hashicorp.com/terraform/%1$s/%2$s";
     private static final String COMPRESSED_FILENAME = "terraform_%1$s_%2$s_%3$s.zip";
+    private static final String AMD64               = "amd64";
+    private static final String ARM                 = "arm";
 
     private static final int BUFFER_SIZE = 8192;
 
@@ -106,15 +108,15 @@ public class DownloadTask extends DefaultTask {
     @Nonnull
     @Internal
     protected String getArchitecture() {
-        if (OperatingSystem.current().isUnix() && (OperatingSystem.current().isMacOsX() || OperatingSystem.current().equals(OperatingSystem.SOLARIS))) return "amd64";
+        if (OperatingSystem.current().isUnix() && (OperatingSystem.current().isMacOsX() || OperatingSystem.current().equals(OperatingSystem.SOLARIS))) return DownloadTask.AMD64;
 
         final String architecture = System.getProperty("os.arch");
 
         if ("i386".equals(architecture) || "x86".equals(architecture)) return "386";
-        if ("x86_64".equals(architecture)) return "amd64";
-        if (architecture.startsWith("arm")) return "arm";
+        if ("x86_64".equals(architecture)) return DownloadTask.AMD64;
+        if (architecture.startsWith(DownloadTask.ARM)) return DownloadTask.ARM;
 
-        return "amd64";
+        return DownloadTask.AMD64;
     }
 
     //endregion
@@ -126,7 +128,9 @@ public class DownloadTask extends DefaultTask {
         try {
             if (compressedFile != null) this.explodeZip(compressedFile, this.getOutputDirectory());
 
-            new File(this.getOutputDirectory(), Constants.TERRAFORM).setExecutable(true);
+            final File file = new File(this.getOutputDirectory(), Constants.TERRAFORM);
+
+            if (!file.setExecutable(true)) DownloadTask.LOGGER.warn("Failed to change executable permission: " + file.getAbsolutePath());
         } catch (final IOException e) {
             throw new ResourceException(e.getMessage(), e);
         }
@@ -148,7 +152,7 @@ public class DownloadTask extends DefaultTask {
             return null;
         }
 
-        DownloadTask.LOGGER.info("Download Terraform CLI from " + downloadUrl);
+        DownloadTask.LOGGER.info(String.format(Locale.US, "Download Terraform CLI from %s", downloadUrl));
 
         try (
             ReadableByteChannel readableByteChannel = Channels.newChannel(new URL(downloadUrl).openStream());

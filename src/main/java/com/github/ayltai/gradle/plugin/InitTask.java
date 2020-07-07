@@ -38,12 +38,6 @@ public class InitTask extends StatefulTask {
 
     @Nonnull
     @Input
-    public Property<Boolean> getNoColor() {
-        return this.noColor;
-    }
-
-    @Nonnull
-    @Input
     public Property<Boolean> getUpgrade() {
         return this.upgrade;
     }

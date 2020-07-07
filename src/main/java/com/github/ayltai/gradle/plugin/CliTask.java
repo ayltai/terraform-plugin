@@ -62,8 +62,8 @@ public abstract class CliTask extends Exec {
     @TaskAction
     @Override
     protected void exec() {
-        this.workingDir(this.getSourceDirectory());
-        this.commandLine(this.getCommandLineArgs());
+        this.workingDir(this.getSourceDirectory())
+            .commandLine(this.getCommandLineArgs());
 
         super.exec();
     }

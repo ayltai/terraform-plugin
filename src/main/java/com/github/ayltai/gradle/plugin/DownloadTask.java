@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.gradle.api.DefaultTask;
+import org.gradle.api.logging.LogLevel;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.provider.Property;
 import org.gradle.api.resources.ResourceException;
@@ -106,7 +107,7 @@ public class DownloadTask extends DefaultTask {
             return "openbsd";
         }
 
-        DownloadTask.LOGGER.warn(String.format(Locale.US, "Failed to determine the type of OS: %s", OperatingSystem.current().getFamilyName()));
+        if (DownloadTask.LOGGER.isEnabled(LogLevel.WARN)) DownloadTask.LOGGER.warn(String.format(Locale.US, "Failed to determine the type of OS: %s", OperatingSystem.current().getFamilyName()));
 
         return "linux";
     }
@@ -158,7 +159,7 @@ public class DownloadTask extends DefaultTask {
             return null;
         }
 
-        DownloadTask.LOGGER.info(String.format(Locale.US, "Download Terraform CLI from %s", downloadUrl));
+        if (DownloadTask.LOGGER.isEnabled(LogLevel.WARN)) DownloadTask.LOGGER.info(String.format(Locale.US, "Download Terraform CLI from %s", downloadUrl));
 
         try (
             ReadableByteChannel readableByteChannel = Channels.newChannel(new URL(downloadUrl).openStream());

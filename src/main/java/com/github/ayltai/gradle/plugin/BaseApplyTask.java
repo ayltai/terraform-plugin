@@ -78,10 +78,10 @@ public abstract class BaseApplyTask extends StatefulTask {
     protected List<String> getCommandLineArgs() {
         final List<String> args = super.getCommandLineArgs();
 
-        if (this.backup.isPresent()) args.add("-backup=" + this.backup.get());
+        if (this.backup.isPresent() && this.backup.getOrNull() != null) args.add("-backup=" + this.backup.get());
         if (this.compactWarnings.getOrElse(false)) args.add("-compact-warnings");
         if (this.parallelism.isPresent()) args.add("-parallelism=" + this.parallelism.get());
-        if (this.state.isPresent()) args.add("-state=" + this.state.get());
+        if (this.state.isPresent() && this.state.getOrNull() != null) args.add("-state=" + this.state.get());
         if (this.targets.isPresent() && !this.targets.get().isEmpty()) args.addAll(this.targets.get().stream().map(target -> "-target=" + target).collect(Collectors.toList()));
 
         if (!this.variables.isEmpty()) {

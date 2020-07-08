@@ -68,7 +68,7 @@ public class PlanTask extends BaseApplyTask {
 
         if (this.destroy.getOrElse(false)) args.add("-destroy");
         if (this.detailedExitCode.getOrElse(false)) args.add("-detailed-exitcode");
-        if (this.out.isPresent()) args.add("-out=" + this.out.get());
+        if (this.out.isPresent() && this.out.getOrNull() != null) args.add("-out=" + this.out.get());
         if (!this.refresh.getOrElse(true)) args.add("-refresh=false");
 
         args.addAll(super.getCommandLineArgs());

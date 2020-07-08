@@ -67,8 +67,8 @@ public class ApplyTask extends BaseApplyTask {
         args.addAll(super.getCommandLineArgs());
 
         if (!this.refresh.getOrElse(true)) args.add("-refresh=false");
-        if (this.stateOut.isPresent()) args.add("-state-out=" + this.stateOut.get());
-        if (this.in.isPresent()) args.add(this.in.get());
+        if (this.stateOut.isPresent() && this.stateOut.getOrNull() != null) args.add("-state-out=" + this.stateOut.get());
+        if (this.in.isPresent() && this.in.getOrNull() != null) args.add(this.in.get());
 
         return args;
     }

@@ -78,6 +78,9 @@ Example:
 ```groovy
 terraform {
     toolVersion = '0.12.28'
+    backend     = 'app.terraform.io'
+    apiToken    = System.getenv('TERRAFORM_API_TOKEN')
+    workspace   = 'main'
 }
 ```
 

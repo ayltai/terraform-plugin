@@ -1,5 +1,6 @@
 package com.github.ayltai.gradle.plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -8,7 +9,7 @@ public class BaseApplyOptions extends StatefulOptions {
     protected boolean      compactWarnings;
     protected int          parallelism = 10;
     protected String       state;
-    protected List<String> targets;
+    protected List<String> targets     = new ArrayList<>();
 
     public BaseApplyOptions(@Nonnull final String name) {
         super(name);

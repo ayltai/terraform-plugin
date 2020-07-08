@@ -80,14 +80,14 @@ public abstract class BaseApplyTask extends StatefulTask {
 
         if (this.backup.isPresent() && this.backup.getOrNull() != null) args.add("-backup=" + this.backup.get());
         if (this.compactWarnings.getOrElse(false)) args.add("-compact-warnings");
-        if (this.parallelism.isPresent()) args.add("-parallelism=" + this.parallelism.get());
+        if (this.parallelism.isPresent() && this.parallelism.get() != 10 && this.parallelism.get() > 0) args.add("-parallelism=" + this.parallelism.get());
         if (this.state.isPresent() && this.state.getOrNull() != null) args.add("-state=" + this.state.get());
         if (this.targets.isPresent() && !this.targets.get().isEmpty()) args.addAll(this.targets.get().stream().map(target -> "-target=" + target).collect(Collectors.toList()));
 
         if (!this.variables.isEmpty()) {
             this.variables.forEach(variable -> {
                 args.addAll(variable.files.stream().map(file -> "-var-file=" + file.getAbsolutePath()).collect(Collectors.toList()));
-                args.addAll(variable.vars.stream().map(var -> String.format(Locale.US, "-var '$1%s=$2%s'", var.name, var.value)).collect(Collectors.toList()));
+                args.addAll(variable.vars.stream().map(var -> String.format(Locale.US, "-var '%1$s=%2$s'", var.name, var.value)).collect(Collectors.toList()));
             });
         }
 

@@ -87,7 +87,11 @@ public abstract class BaseApplyTask extends StatefulTask {
         if (!this.variables.isEmpty()) {
             this.variables.forEach(variable -> {
                 args.addAll(variable.files.stream().map(file -> "-var-file=" + file.getAbsolutePath()).collect(Collectors.toList()));
-                args.addAll(variable.vars.stream().map(var -> String.format(Locale.US, "-var '%1$s=%2$s'", var.name, var.value)).collect(Collectors.toList()));
+
+                variable.vars.forEach(var -> {
+                    args.add("-var");
+                    args.add(String.format(Locale.US, "'%1$s=%2$s'", var.name, var.value));
+                });
             });
         }
 

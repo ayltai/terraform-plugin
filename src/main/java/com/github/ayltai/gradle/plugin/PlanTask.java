@@ -27,7 +27,7 @@ public class PlanTask extends BaseApplyTask {
         this.refresh          = this.getProject().getObjects().property(Boolean.class);
 
         this.setGroup(Constants.GROUP_BUILD_SETUP);
-        this.setDescription("Create a Terraform execution plan");
+        this.setDescription("Create a Terraform execution plan.");
     }
 
     //region Gradle task inputs

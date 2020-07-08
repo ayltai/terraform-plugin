@@ -13,7 +13,12 @@ import org.gradle.api.provider.Property;
 import groovy.lang.Closure;
 
 public class TerraformExtension {
-    private static final String DEFAULT_SOURCE = "src/main/terraform";
+    //region Constants
+
+    private static final String DEFAULT_SOURCE    = "src/main/terraform";
+    private static final String DEFAULT_WORKSPACE = "default";
+
+    //endregion
 
     //region Gradle plugin properties
 
@@ -22,6 +27,7 @@ public class TerraformExtension {
     protected final Property<String>                            toolVersion;
     protected final Property<Boolean>                           forceDownload;
     protected final Property<String>                            source;
+    protected final Property<String>                            workspace;
     protected final RegularFileProperty                         configFile;
     protected final NamedDomainObjectContainer<InitOptions>     initOptions;
     protected final NamedDomainObjectContainer<FmtOptions>      fmtOptions;
@@ -40,6 +46,7 @@ public class TerraformExtension {
         this.toolVersion     = factory.property(String.class);
         this.forceDownload   = factory.property(Boolean.class);
         this.source          = factory.property(String.class);
+        this.workspace       = factory.property(String.class);
         this.configFile      = factory.fileProperty();
         this.initOptions     = factory.domainObjectContainer(InitOptions.class);
         this.fmtOptions      = factory.domainObjectContainer(FmtOptions.class);
@@ -75,7 +82,7 @@ public class TerraformExtension {
         return this.toolVersion.getOrNull();
     }
 
-    public void setToolVersion(@Nullable final String toolVersion) {
+    public void setToolVersion(@Nonnull final String toolVersion) {
         this.toolVersion.set(toolVersion);
     }
 
@@ -94,6 +101,15 @@ public class TerraformExtension {
 
     public void setSource(@Nonnull final String source) {
         this.source.set(source);
+    }
+
+    @Nullable
+    public String getWorkspace() {
+        return this.workspace.getOrElse(TerraformExtension.DEFAULT_WORKSPACE);
+    }
+
+    public void setWorkspace(@Nullable final String workspace) {
+        this.workspace.set(workspace);
     }
 
     @Nullable

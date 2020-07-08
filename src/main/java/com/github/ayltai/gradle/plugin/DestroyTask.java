@@ -8,7 +8,7 @@ public class DestroyTask extends ApplyTask {
     static final String TASK_NAME = "tfDestroy";
 
     public DestroyTask() {
-        this.setDescription("Destroy the Terraform-managed infrastructure");
+        this.setDescription("Destroy the Terraform-managed infrastructure.");
     }
 
     @Nonnull

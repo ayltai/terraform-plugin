@@ -32,7 +32,7 @@ public abstract class CommandLineTaskTests extends TaskTests {
             });
 
         final DownloadTask task = this.getTask(DownloadTask.TASK_NAME);
-        task.toolVersion.set("0.12.26");
+        task.toolVersion.set("0.12.28");
         task.run();
     }
 }

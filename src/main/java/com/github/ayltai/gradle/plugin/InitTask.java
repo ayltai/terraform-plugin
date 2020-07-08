@@ -25,7 +25,7 @@ public class InitTask extends StatefulTask {
         this.upgrade    = this.getProject().getObjects().property(Boolean.class);
 
         this.setGroup(Constants.GROUP_BUILD_SETUP);
-        this.setDescription("Initialize Terraform source scripts");
+        this.setDescription("Initialize Terraform source scripts.");
     }
 
     //region Gradle task inputs and outputs

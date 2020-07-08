@@ -17,6 +17,11 @@ public class TerraformPlugin implements Plugin<Project> {
         TerraformPlugin.registerPlanTask(project, extension);
         TerraformPlugin.registerApplyTask(project, extension);
         TerraformPlugin.registerDestroyTask(project, extension);
+        TerraformPlugin.registerListWorkspaceTask(project, extension);
+        TerraformPlugin.registerShowWorkspaceTask(project, extension);
+        TerraformPlugin.registerSelectWorkspaceTask(project, extension);
+        TerraformPlugin.registerNewWorkspaceTask(project, extension);
+        TerraformPlugin.registerDeleteWorkspaceTask(project, extension);
     }
 
     private static void registerDownloadTask(@Nonnull final Project project, @Nonnull final TerraformExtension extension) {
@@ -127,6 +132,59 @@ public class TerraformPlugin implements Plugin<Project> {
 
                 TerraformPlugin.configureStatefulTask(task, extension, options);
                 TerraformPlugin.configureBaseApplyTask(task, extension, options);
+            });
+    }
+
+    private static void registerListWorkspaceTask(@Nonnull final Project project, @Nonnull final TerraformExtension extension) {
+        project.getTasks()
+            .register(ListWorkspaceTask.TASK_NAME, ListWorkspaceTask.class)
+            .configure(task -> {
+                task.dependsOn(InitTask.TASK_NAME);
+
+                task.source.set(extension.getSource());
+            });
+    }
+
+    private static void registerShowWorkspaceTask(@Nonnull final Project project, @Nonnull final TerraformExtension extension) {
+        project.getTasks()
+            .register(ShowWorkspaceTask.TASK_NAME, ShowWorkspaceTask.class)
+            .configure(task -> {
+                task.dependsOn(InitTask.TASK_NAME);
+
+                task.source.set(extension.getSource());
+            });
+    }
+
+    private static void registerSelectWorkspaceTask(@Nonnull final Project project, @Nonnull final TerraformExtension extension) {
+        project.getTasks()
+            .register(SelectWorkspaceTask.TASK_NAME, SelectWorkspaceTask.class)
+            .configure(task -> {
+                task.dependsOn(InitTask.TASK_NAME);
+
+                task.source.set(extension.getSource());
+                task.workspace.set(extension.getWorkspace());
+            });
+    }
+
+    private static void registerNewWorkspaceTask(@Nonnull final Project project, @Nonnull final TerraformExtension extension) {
+        project.getTasks()
+            .register(NewWorkspaceTask.TASK_NAME, NewWorkspaceTask.class)
+            .configure(task -> {
+                task.dependsOn(InitTask.TASK_NAME);
+
+                task.source.set(extension.getSource());
+                task.workspace.set(extension.getWorkspace());
+            });
+    }
+
+    private static void registerDeleteWorkspaceTask(@Nonnull final Project project, @Nonnull final TerraformExtension extension) {
+        project.getTasks()
+            .register(DeleteWorkspaceTask.TASK_NAME, DeleteWorkspaceTask.class)
+            .configure(task -> {
+                task.dependsOn(InitTask.TASK_NAME);
+
+                task.source.set(extension.getSource());
+                task.workspace.set(extension.getWorkspace());
             });
     }
 

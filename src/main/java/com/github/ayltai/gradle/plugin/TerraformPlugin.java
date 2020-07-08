@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.plugins.ExtensionAware;
 
 public class TerraformPlugin implements Plugin<Project> {
     @Override
@@ -39,7 +40,7 @@ public class TerraformPlugin implements Plugin<Project> {
             .configure(task -> {
                 task.dependsOn(DownloadTask.TASK_NAME);
 
-                final InitOptions options = extension.initOptions.maybeCreate("init");
+                final InitOptions options = (InitOptions)((ExtensionAware)extension).getExtensions().getByName("init");
 
                 task.useBackend.set(options.useBackend);
                 task.upgrade.set(options.upgrade);
@@ -54,7 +55,7 @@ public class TerraformPlugin implements Plugin<Project> {
             .configure(task -> {
                 task.dependsOn(DownloadTask.TASK_NAME);
 
-                final FmtOptions options = extension.fmtOptions.maybeCreate("fmt");
+                final FmtOptions options = (FmtOptions)((ExtensionAware)extension).getExtensions().getByName("fmt");
 
                 task.source.set(extension.getSource());
                 task.list.set(options.list);
@@ -72,7 +73,7 @@ public class TerraformPlugin implements Plugin<Project> {
             .configure(task -> {
                 task.dependsOn(InitTask.TASK_NAME);
 
-                final ValidateOptions options = extension.validateOptions.maybeCreate("fmt");
+                final ValidateOptions options = (ValidateOptions)((ExtensionAware)extension).getExtensions().getByName("validate");
 
                 task.source.set(extension.getSource());
                 task.json.set(options.json);
@@ -87,7 +88,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME)
                     .dependsOn(InitTask.TASK_NAME);
 
-                final PlanOptions options = extension.planOptions.maybeCreate("plan");
+                final PlanOptions options = (PlanOptions)((ExtensionAware)extension).getExtensions().getByName("plan");
 
                 task.destroy.set(options.destroy);
                 task.detailedExitCode.set(options.detailedExitCode);
@@ -106,7 +107,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME)
                     .dependsOn(InitTask.TASK_NAME);
 
-                final ApplyOptions options = extension.applyOptions.maybeCreate("apply");
+                final ApplyOptions options = (ApplyOptions)((ExtensionAware)extension).getExtensions().getByName("apply");
 
                 task.refresh.set(options.refresh);
                 task.stateOut.set(options.stateOut);
@@ -124,7 +125,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME)
                     .dependsOn(InitTask.TASK_NAME);
 
-                final ApplyOptions options = extension.destroyOptions.maybeCreate("destroy");
+                final ApplyOptions options = (ApplyOptions)((ExtensionAware)extension).getExtensions().getByName("destroy");
 
                 task.refresh.set(options.refresh);
                 task.stateOut.set(options.stateOut);
@@ -210,7 +211,7 @@ public class TerraformPlugin implements Plugin<Project> {
         task.state.set(options.state);
         task.targets.set(options.targets);
 
-        final Variables variables = extension.variables.maybeCreate("variables");
+        final Variables variables = (Variables)((ExtensionAware)extension).getExtensions().getByName("variables");
         task.variables.add(variables);
     }
 }

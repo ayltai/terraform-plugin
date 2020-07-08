@@ -29,7 +29,7 @@ Supports for executing [Terraform](https://www.terraform.io) [command-line tools
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```groovy
 plugins {
-    id 'com.github.ayltai.terraform-plugin' version '0.2.0'
+    id 'com.github.ayltai.terraform-plugin' version '0.2.5'
 }
 ```
 
@@ -43,7 +43,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'gradle.plugin.com.github.ayltai:terraform-plugin:0.2.0'
+        classpath 'gradle.plugin.com.github.ayltai:terraform-plugin:0.2.5'
     }
 }
 
@@ -54,7 +54,7 @@ apply plugin: 'com.github.ayltai.terraform-plugin'
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```groovy
 plugins {
-    id('com.github.ayltai.terraform-plugin') version '0.2.0'
+    id('com.github.ayltai.terraform-plugin') version '0.2.5'
 }
 ```
 
@@ -68,7 +68,7 @@ buildscript {
     }
 
     dependencies {
-        classpath('gradle.plugin.com.github.ayltai:terraform-plugin:0.2.0')
+        classpath('gradle.plugin.com.github.ayltai:terraform-plugin:0.2.5')
     }
 }
 ```
@@ -81,6 +81,11 @@ terraform {
     backend     = 'app.terraform.io'
     apiToken    = System.getenv('TERRAFORM_API_TOKEN')
     workspace   = 'main'
+
+    variables {
+        var 'access_key', System.getenv('TERRAFORM_ACCESS_KEY')
+        var 'secret key', System.getenv('TERRAFORM_SECRET_KEY')
+    }
 }
 ```
 

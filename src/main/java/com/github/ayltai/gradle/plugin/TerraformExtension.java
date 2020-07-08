@@ -5,15 +5,23 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.model.ObjectFactory;
+import org.gradle.api.plugins.ExtensionAware;
 import org.gradle.api.provider.Property;
 
 import groovy.lang.Closure;
 
 public class TerraformExtension {
     //region Constants
+
+    private static final String EXTENSION_INIT      = "init";
+    private static final String EXTENSION_FMT       = "fmt";
+    private static final String EXTENSION_VALIDATE  = "validate";
+    private static final String EXTENSION_PLAN      = "plan";
+    private static final String EXTENSION_APPLY     = "apply";
+    private static final String EXTENSION_DESTROY   = "destroy";
+    private static final String EXTENSION_VARIABLES = "variables";
 
     private static final String DEFAULT_SOURCE    = "src/main/terraform";
     private static final String DEFAULT_WORKSPACE = "default";
@@ -22,20 +30,20 @@ public class TerraformExtension {
 
     //region Gradle plugin properties
 
-    protected final Property<String>                            backend;
-    protected final Property<String>                            apiToken;
-    protected final Property<String>                            toolVersion;
-    protected final Property<Boolean>                           forceDownload;
-    protected final Property<String>                            source;
-    protected final Property<String>                            workspace;
-    protected final RegularFileProperty                         configFile;
-    protected final NamedDomainObjectContainer<InitOptions>     initOptions;
-    protected final NamedDomainObjectContainer<FmtOptions>      fmtOptions;
-    protected final NamedDomainObjectContainer<ValidateOptions> validateOptions;
-    protected final NamedDomainObjectContainer<PlanOptions>     planOptions;
-    protected final NamedDomainObjectContainer<ApplyOptions>    applyOptions;
-    protected final NamedDomainObjectContainer<ApplyOptions>    destroyOptions;
-    protected final NamedDomainObjectContainer<Variables>       variables;
+    protected final Property<String>    backend;
+    protected final Property<String>    apiToken;
+    protected final Property<String>    toolVersion;
+    protected final Property<Boolean>   forceDownload;
+    protected final Property<String>    source;
+    protected final Property<String>    workspace;
+    protected final RegularFileProperty configFile;
+    protected final InitOptions         initOptions;
+    protected final FmtOptions          fmtOptions;
+    protected final ValidateOptions     validateOptions;
+    protected final PlanOptions         planOptions;
+    protected final ApplyOptions        applyOptions;
+    protected final ApplyOptions        destroyOptions;
+    protected final Variables           variables;
 
     //endregion
 
@@ -48,13 +56,13 @@ public class TerraformExtension {
         this.source          = factory.property(String.class);
         this.workspace       = factory.property(String.class);
         this.configFile      = factory.fileProperty();
-        this.initOptions     = factory.domainObjectContainer(InitOptions.class);
-        this.fmtOptions      = factory.domainObjectContainer(FmtOptions.class);
-        this.validateOptions = factory.domainObjectContainer(ValidateOptions.class);
-        this.planOptions     = factory.domainObjectContainer(PlanOptions.class);
-        this.applyOptions    = factory.domainObjectContainer(ApplyOptions.class);
-        this.destroyOptions  = factory.domainObjectContainer(ApplyOptions.class);
-        this.variables       = factory.domainObjectContainer(Variables.class);
+        this.initOptions     = ((ExtensionAware)this).getExtensions().create(TerraformExtension.EXTENSION_INIT, InitOptions.class, TerraformExtension.EXTENSION_INIT);
+        this.fmtOptions      = ((ExtensionAware)this).getExtensions().create(TerraformExtension.EXTENSION_FMT, FmtOptions.class, TerraformExtension.EXTENSION_FMT);
+        this.validateOptions = ((ExtensionAware)this).getExtensions().create(TerraformExtension.EXTENSION_VALIDATE, ValidateOptions.class, TerraformExtension.EXTENSION_VALIDATE);
+        this.planOptions     = ((ExtensionAware)this).getExtensions().create(TerraformExtension.EXTENSION_PLAN, PlanOptions.class, TerraformExtension.EXTENSION_PLAN);
+        this.applyOptions    = ((ExtensionAware)this).getExtensions().create(TerraformExtension.EXTENSION_APPLY, ApplyOptions.class, TerraformExtension.EXTENSION_APPLY);
+        this.destroyOptions  = ((ExtensionAware)this).getExtensions().create(TerraformExtension.EXTENSION_DESTROY, ApplyOptions.class, TerraformExtension.EXTENSION_DESTROY);
+        this.variables       = ((ExtensionAware)this).getExtensions().create(TerraformExtension.EXTENSION_VARIABLES, Variables.class, TerraformExtension.EXTENSION_VARIABLES);
     }
 
     //region Properties
@@ -122,31 +130,38 @@ public class TerraformExtension {
     }
 
     public void init(@Nonnull final Closure<InitOptions> closure) {
-        this.initOptions.configure(closure);
+        closure.setDelegate(this.initOptions);
+        closure.call();
     }
 
     public void fmt(@Nonnull final Closure<InitOptions> closure) {
-        this.fmtOptions.configure(closure);
+        closure.setDelegate(this.fmtOptions);
+        closure.call();
     }
 
     public void plan(@Nonnull final Closure<PlanOptions> closure) {
-        this.planOptions.configure(closure);
+        closure.setDelegate(this.planOptions);
+        closure.call();
     }
 
     public void apply(@Nonnull final Closure<ApplyOptions> closure) {
-        this.applyOptions.configure(closure);
+        closure.setDelegate(this.applyOptions);
+        closure.call();
     }
 
     public void destroy(@Nonnull final Closure<ApplyOptions> closure) {
-        this.destroyOptions.configure(closure);
+        closure.setDelegate(this.destroyOptions);
+        closure.call();
     }
 
     public void validate(@Nonnull final Closure<InitOptions> closure) {
-        this.validateOptions.configure(closure);
+        closure.setDelegate(this.validateOptions);
+        closure.call();
     }
 
     public void variables(@Nonnull final Closure<Variables> closure) {
-        this.variables.configure(closure);
+        closure.setDelegate(this.variables);
+        closure.call();
     }
 
     //endregion

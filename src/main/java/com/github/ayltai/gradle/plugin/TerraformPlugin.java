@@ -139,7 +139,7 @@ public class TerraformPlugin implements Plugin<Project> {
         project.getTasks()
             .register(ListWorkspaceTask.TASK_NAME, ListWorkspaceTask.class)
             .configure(task -> {
-                task.dependsOn(InitTask.TASK_NAME);
+                task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
             });
@@ -149,7 +149,7 @@ public class TerraformPlugin implements Plugin<Project> {
         project.getTasks()
             .register(ShowWorkspaceTask.TASK_NAME, ShowWorkspaceTask.class)
             .configure(task -> {
-                task.dependsOn(InitTask.TASK_NAME);
+                task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
             });
@@ -159,7 +159,7 @@ public class TerraformPlugin implements Plugin<Project> {
         project.getTasks()
             .register(SelectWorkspaceTask.TASK_NAME, SelectWorkspaceTask.class)
             .configure(task -> {
-                task.dependsOn(InitTask.TASK_NAME);
+                task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
                 task.workspace.set(extension.getWorkspace());
@@ -170,7 +170,7 @@ public class TerraformPlugin implements Plugin<Project> {
         project.getTasks()
             .register(NewWorkspaceTask.TASK_NAME, NewWorkspaceTask.class)
             .configure(task -> {
-                task.dependsOn(InitTask.TASK_NAME);
+                task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
                 task.workspace.set(extension.getWorkspace());
@@ -181,7 +181,7 @@ public class TerraformPlugin implements Plugin<Project> {
         project.getTasks()
             .register(DeleteWorkspaceTask.TASK_NAME, DeleteWorkspaceTask.class)
             .configure(task -> {
-                task.dependsOn(InitTask.TASK_NAME);
+                task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
                 task.workspace.set(extension.getWorkspace());

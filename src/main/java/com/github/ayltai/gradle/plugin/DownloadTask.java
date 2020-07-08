@@ -28,6 +28,7 @@ import org.gradle.api.resources.ResourceException;
 import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.api.tasks.TaskExecutionException;
@@ -76,6 +77,7 @@ public class DownloadTask extends DefaultTask {
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getForceDownload() {
         return this.forceDownload;

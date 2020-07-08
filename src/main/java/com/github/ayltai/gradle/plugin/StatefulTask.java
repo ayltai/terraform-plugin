@@ -17,6 +17,7 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.resources.ResourceException;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.internal.os.OperatingSystem;
@@ -51,30 +52,35 @@ public abstract class StatefulTask extends CommandLineTask {
     //region Gradle task inputs and outputs
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getBackend() {
         return this.backend;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getApiToken() {
         return this.apiToken;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getInput() {
         return this.input;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getLock() {
         return this.lock;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Integer> getLockTimeout() {
         return this.lockTimeout;

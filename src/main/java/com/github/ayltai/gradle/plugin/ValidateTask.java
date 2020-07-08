@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 
 public class ValidateTask extends CommandLineTask {
     static final String TASK_NAME = "tfValidate";
@@ -21,6 +22,7 @@ public class ValidateTask extends CommandLineTask {
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getJson() {
         return this.json;

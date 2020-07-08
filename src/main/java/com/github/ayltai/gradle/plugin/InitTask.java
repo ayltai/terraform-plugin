@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputDirectory;
 
 public class InitTask extends StatefulTask {
@@ -31,12 +32,14 @@ public class InitTask extends StatefulTask {
     //region Gradle task inputs and outputs
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getUseBackend() {
         return this.useBackend;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getUpgrade() {
         return this.upgrade;

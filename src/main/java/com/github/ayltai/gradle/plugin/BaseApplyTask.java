@@ -10,6 +10,7 @@ import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 
 public abstract class BaseApplyTask extends StatefulTask {
     //region Properties
@@ -35,36 +36,42 @@ public abstract class BaseApplyTask extends StatefulTask {
     //region Gradle task inputs
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getBackup() {
         return this.backup;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getCompactWarnings() {
         return this.compactWarnings;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Integer> getParallelism() {
         return this.parallelism;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getStateFile() {
         return this.state;
     }
 
     @Nonnull
+    @Optional
     @Input
     public ListProperty<String> getTargets() {
         return this.targets;
     }
 
     @Nonnull
+    @Optional
     @Input
     public NamedDomainObjectContainer<Variables> getVariables() {
         return this.variables;

@@ -8,6 +8,7 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Exec;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 
 public abstract class CommandLineTask extends Exec {
@@ -26,12 +27,14 @@ public abstract class CommandLineTask extends Exec {
     //region Gradle task inputs
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getSource() {
         return this.source;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getNoColor() {
         return this.noColor;

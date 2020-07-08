@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 
 public class ApplyTask extends BaseApplyTask {
     static final String TASK_NAME = "tfApply";
@@ -31,18 +32,21 @@ public class ApplyTask extends BaseApplyTask {
     //region Gradle task inputs
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getRefresh() {
         return this.refresh;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getStateOut() {
         return this.stateOut;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getIn() {
         return this.in;

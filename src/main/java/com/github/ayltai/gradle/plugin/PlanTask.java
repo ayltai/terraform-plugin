@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 
 public class PlanTask extends BaseApplyTask {
     static final String TASK_NAME = "tfPlan";
@@ -33,24 +34,28 @@ public class PlanTask extends BaseApplyTask {
     //region Gradle task inputs
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getDestroy() {
         return this.destroy;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getDetailedExitCode() {
         return this.detailedExitCode;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<String> getOut() {
         return this.out;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getRefresh() {
         return this.refresh;

@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Optional;
 
 public class FmtTask extends CommandLineTask {
     static final String TASK_NAME = "tfFmt";
@@ -35,30 +36,35 @@ public class FmtTask extends CommandLineTask {
     //region Gradle task inputs
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getList() {
         return this.list;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getWrite() {
         return this.write;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getDiff() {
         return this.diff;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getCheck() {
         return this.check;
     }
 
     @Nonnull
+    @Optional
     @Input
     public Property<Boolean> getRecursive() {
         return this.recursive;

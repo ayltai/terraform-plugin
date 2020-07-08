@@ -11,7 +11,12 @@ import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class CommandLineTask extends Exec {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandLineTask.class);
+
     //region Properties
 
     protected final Property<String>  source;
@@ -67,6 +72,8 @@ public abstract class CommandLineTask extends Exec {
     protected void exec() {
         this.workingDir(this.getSourceDirectory())
             .commandLine(this.getCommandLineArgs());
+
+        if (CommandLineTask.LOGGER.isDebugEnabled()) CommandLineTask.LOGGER.debug(String.join(" ", this.getCommandLine()));
 
         super.exec();
     }

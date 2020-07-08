@@ -124,7 +124,7 @@ public abstract class StatefulTask extends CommandLineTask {
 
     protected void saveCredentials() throws IOException {
         if (this.backend.isPresent() && this.apiToken.isPresent()) {
-            StatefulTask.LOGGER.info("Create credentials at " + this.getCredentials().getAbsolutePath());
+            if (StatefulTask.LOGGER.isInfoEnabled()) StatefulTask.LOGGER.info("Create credentials at " + this.getCredentials().getAbsolutePath());
 
             try (PrintStream outputStream = new PrintStream(new FileOutputStream(this.getCredentials()), true, StandardCharsets.US_ASCII.name())) {
                 outputStream.println(String.format(Locale.US, StatefulTask.CREDENTIALS, this.backend.get(), this.apiToken.get()));

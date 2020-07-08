@@ -1,8 +1,11 @@
 package com.github.ayltai.gradle.plugin;
 
+import java.io.Serializable;
 import javax.annotation.Nonnull;
 
-public abstract class Options {
+public abstract class Options implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     protected final String name;
 
     protected boolean noColor;

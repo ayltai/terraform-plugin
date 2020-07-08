@@ -1,9 +1,12 @@
 package com.github.ayltai.gradle.plugin;
 
+import java.io.Serializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class Variable<T> {
+public class Variable<T> implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     protected final String name;
     protected final T      value;
 

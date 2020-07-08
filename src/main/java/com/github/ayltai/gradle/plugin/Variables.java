@@ -7,6 +7,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class Variables extends Options {
+    private static final long serialVersionUID = 1L;
+
     protected final List<Variable<?>> vars  = new ArrayList<>();
     protected final List<File>        files = new ArrayList<>();
 

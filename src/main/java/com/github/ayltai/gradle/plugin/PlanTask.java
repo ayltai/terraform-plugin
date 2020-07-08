@@ -8,7 +8,7 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
 
-public class PlanTask extends ExecuteTask {
+public class PlanTask extends BaseApplyTask {
     static final String TASK_NAME = "tfPlan";
 
     //region Properties

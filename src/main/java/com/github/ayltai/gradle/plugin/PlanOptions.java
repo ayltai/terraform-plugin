@@ -2,7 +2,7 @@ package com.github.ayltai.gradle.plugin;
 
 import javax.annotation.Nonnull;
 
-public class PlanOptions extends ExecuteOptions {
+public class PlanOptions extends BaseApplyOptions {
     protected boolean destroy;
     protected boolean detailedExitCode;
     protected String  out;

@@ -3,14 +3,14 @@ package com.github.ayltai.gradle.plugin;
 import java.util.List;
 import javax.annotation.Nonnull;
 
-public class ExecuteOptions extends StatefulOptions {
+public class BaseApplyOptions extends StatefulOptions {
     protected String       backup;
     protected boolean      compactWarnings;
     protected int          parallelism = 10;
     protected String       state;
     protected List<String> targets;
 
-    public ExecuteOptions(@Nonnull final String name) {
+    public BaseApplyOptions(@Nonnull final String name) {
         super(name);
     }
 

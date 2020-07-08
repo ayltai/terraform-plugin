@@ -9,7 +9,7 @@ import org.gradle.internal.impldep.com.google.api.client.util.Throwables;
 
 import org.junit.jupiter.api.BeforeEach;
 
-public abstract class CliTaskTests extends TaskTests {
+public abstract class CommandLineTaskTests extends TaskTests {
     protected static final String SOURCE = "src/test/terraform";
 
     @Override
@@ -17,7 +17,7 @@ public abstract class CliTaskTests extends TaskTests {
     public void setUp() throws Exception {
         super.setUp();
 
-        final File destination = new File(this.project.getProjectDir(), CliTaskTests.SOURCE);
+        final File destination = new File(this.project.getProjectDir(), CommandLineTaskTests.SOURCE);
         if (!destination.exists() && !destination.mkdirs()) throw new IOException("Failed to create test directory: " + destination.getAbsolutePath());
 
         Files.walk(new File(this.getClass().getClassLoader().getResource("terraform").toURI()).toPath())

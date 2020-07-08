@@ -8,7 +8,7 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
 
-public class FmtTask extends CliTask {
+public class FmtTask extends CommandLineTask {
     static final String TASK_NAME = "tfFmt";
 
     //region Properties

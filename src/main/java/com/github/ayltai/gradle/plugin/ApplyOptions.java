@@ -2,12 +2,12 @@ package com.github.ayltai.gradle.plugin;
 
 import javax.annotation.Nonnull;
 
-public class ApplyDestroyOptions extends ExecuteOptions {
+public class ApplyOptions extends BaseApplyOptions {
     protected boolean refresh = true;
     protected String  stateOut;
     protected String  in;
 
-    public ApplyDestroyOptions(@Nonnull final String name) {
+    public ApplyOptions(@Nonnull final String name) {
         super(name);
     }
 

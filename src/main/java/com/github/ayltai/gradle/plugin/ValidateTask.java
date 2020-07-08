@@ -8,7 +8,7 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
 
-public class ValidateTask extends CliTask {
+public class ValidateTask extends CommandLineTask {
     static final String TASK_NAME = "tfValidate";
 
     protected final Property<Boolean> json;

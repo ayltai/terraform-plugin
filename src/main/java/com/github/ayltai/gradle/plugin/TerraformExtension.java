@@ -17,35 +17,37 @@ public class TerraformExtension {
 
     //region Gradle plugin properties
 
-    protected final Property<String>                                backend;
-    protected final Property<String>                                apiToken;
-    protected final Property<String>                                toolVersion;
-    protected final Property<Boolean>                               forceDownload;
-    protected final Property<String>                                source;
-    protected final RegularFileProperty                             configFile;
-    protected final NamedDomainObjectContainer<InitOptions>         initOptions;
-    protected final NamedDomainObjectContainer<FmtOptions>          fmtOptions;
-    protected final NamedDomainObjectContainer<ValidateOptions>     validateOptions;
-    protected final NamedDomainObjectContainer<PlanOptions>         planOptions;
-    protected final NamedDomainObjectContainer<ApplyDestroyOptions> applyDestroyOptions;
-    protected final NamedDomainObjectContainer<Variables>           variables;
+    protected final Property<String>                            backend;
+    protected final Property<String>                            apiToken;
+    protected final Property<String>                            toolVersion;
+    protected final Property<Boolean>                           forceDownload;
+    protected final Property<String>                            source;
+    protected final RegularFileProperty                         configFile;
+    protected final NamedDomainObjectContainer<InitOptions>     initOptions;
+    protected final NamedDomainObjectContainer<FmtOptions>      fmtOptions;
+    protected final NamedDomainObjectContainer<ValidateOptions> validateOptions;
+    protected final NamedDomainObjectContainer<PlanOptions>     planOptions;
+    protected final NamedDomainObjectContainer<ApplyOptions>    applyOptions;
+    protected final NamedDomainObjectContainer<ApplyOptions>    destroyOptions;
+    protected final NamedDomainObjectContainer<Variables>       variables;
 
     //endregion
 
     @Inject
     public TerraformExtension(@Nonnull final ObjectFactory factory) {
-        this.backend             = factory.property(String.class);
-        this.apiToken            = factory.property(String.class);
-        this.toolVersion         = factory.property(String.class);
-        this.forceDownload       = factory.property(Boolean.class);
-        this.source              = factory.property(String.class);
-        this.configFile          = factory.fileProperty();
-        this.initOptions         = factory.domainObjectContainer(InitOptions.class);
-        this.fmtOptions          = factory.domainObjectContainer(FmtOptions.class);
-        this.validateOptions     = factory.domainObjectContainer(ValidateOptions.class);
-        this.planOptions         = factory.domainObjectContainer(PlanOptions.class);
-        this.applyDestroyOptions = factory.domainObjectContainer(ApplyDestroyOptions.class);
-        this.variables           = factory.domainObjectContainer(Variables.class);
+        this.backend         = factory.property(String.class);
+        this.apiToken        = factory.property(String.class);
+        this.toolVersion     = factory.property(String.class);
+        this.forceDownload   = factory.property(Boolean.class);
+        this.source          = factory.property(String.class);
+        this.configFile      = factory.fileProperty();
+        this.initOptions     = factory.domainObjectContainer(InitOptions.class);
+        this.fmtOptions      = factory.domainObjectContainer(FmtOptions.class);
+        this.validateOptions = factory.domainObjectContainer(ValidateOptions.class);
+        this.planOptions     = factory.domainObjectContainer(PlanOptions.class);
+        this.applyOptions    = factory.domainObjectContainer(ApplyOptions.class);
+        this.destroyOptions  = factory.domainObjectContainer(ApplyOptions.class);
+        this.variables       = factory.domainObjectContainer(Variables.class);
     }
 
     //region Properties
@@ -115,8 +117,12 @@ public class TerraformExtension {
         this.planOptions.configure(closure);
     }
 
-    public void applyOrDestroy(@Nonnull final Closure<ApplyDestroyOptions> closure) {
-        this.applyDestroyOptions.configure(closure);
+    public void apply(@Nonnull final Closure<ApplyOptions> closure) {
+        this.applyOptions.configure(closure);
+    }
+
+    public void destroy(@Nonnull final Closure<ApplyOptions> closure) {
+        this.destroyOptions.configure(closure);
     }
 
     public void validate(@Nonnull final Closure<InitOptions> closure) {

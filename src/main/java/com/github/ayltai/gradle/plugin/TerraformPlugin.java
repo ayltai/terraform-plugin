@@ -90,7 +90,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.refresh.set(options.refresh);
 
                 TerraformPlugin.configureStatefulTask(task, extension, options);
-                TerraformPlugin.configureExecuteTask(task, extension, options);
+                TerraformPlugin.configureBaseApplyTask(task, extension, options);
             });
     }
 
@@ -101,14 +101,14 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME)
                     .dependsOn(InitTask.TASK_NAME);
 
-                final ApplyDestroyOptions options = extension.applyDestroyOptions.maybeCreate("apply");
+                final ApplyOptions options = extension.applyOptions.maybeCreate("apply");
 
                 task.refresh.set(options.refresh);
                 task.stateOut.set(options.stateOut);
                 task.in.set(options.in);
 
                 TerraformPlugin.configureStatefulTask(task, extension, options);
-                TerraformPlugin.configureExecuteTask(task, extension, options);
+                TerraformPlugin.configureBaseApplyTask(task, extension, options);
             });
     }
 
@@ -119,14 +119,14 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME)
                     .dependsOn(InitTask.TASK_NAME);
 
-                final ApplyDestroyOptions options = extension.applyDestroyOptions.maybeCreate("destroy");
+                final ApplyOptions options = extension.destroyOptions.maybeCreate("destroy");
 
                 task.refresh.set(options.refresh);
                 task.stateOut.set(options.stateOut);
                 task.in.set(options.in);
 
                 TerraformPlugin.configureStatefulTask(task, extension, options);
-                TerraformPlugin.configureExecuteTask(task, extension, options);
+                TerraformPlugin.configureBaseApplyTask(task, extension, options);
             });
     }
 
@@ -140,11 +140,10 @@ public class TerraformPlugin implements Plugin<Project> {
         task.noColor.set(options.noColor);
     }
 
-    private static void configureExecuteTask(@Nonnull final ExecuteTask task, @Nonnull final TerraformExtension extension, @Nonnull final ExecuteOptions options) {
+    private static void configureBaseApplyTask(@Nonnull final BaseApplyTask task, @Nonnull final TerraformExtension extension, @Nonnull final BaseApplyOptions options) {
         task.backup.set(options.backup);
         task.compactWarnings.set(options.compactWarnings);
         task.parallelism.set(options.parallelism);
-
         task.state.set(options.state);
         task.targets.set(options.targets);
 

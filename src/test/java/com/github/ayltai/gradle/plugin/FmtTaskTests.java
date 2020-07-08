@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public final class FmtTaskTests extends CliTaskTests {
+public final class FmtTaskTests extends CommandLineTaskTests {
     @Test
     public void testSetUp() {
         Assertions.assertTrue(this.getTask(FmtTask.TASK_NAME) instanceof FmtTask);
@@ -35,7 +35,7 @@ public final class FmtTaskTests extends CliTaskTests {
     @Test
     public void testExec() {
         final FmtTask task = this.getTask(FmtTask.TASK_NAME);
-        task.source.set(CliTaskTests.SOURCE);
+        task.source.set(CommandLineTaskTests.SOURCE);
         task.exec();
 
         Assertions.assertTrue(task.getExecutionResult().isPresent());

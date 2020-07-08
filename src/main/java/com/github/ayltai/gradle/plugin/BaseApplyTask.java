@@ -11,7 +11,7 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
 
-public abstract class ExecuteTask extends StatefulTask {
+public abstract class BaseApplyTask extends StatefulTask {
     //region Properties
 
     protected final Property<String>                      backup;
@@ -23,7 +23,7 @@ public abstract class ExecuteTask extends StatefulTask {
 
     //endregion
 
-    public ExecuteTask() {
+    public BaseApplyTask() {
         this.backup          = this.getProject().getObjects().property(String.class);
         this.compactWarnings = this.getProject().getObjects().property(Boolean.class);
         this.parallelism     = this.getProject().getObjects().property(Integer.class);

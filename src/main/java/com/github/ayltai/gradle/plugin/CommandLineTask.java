@@ -10,7 +10,7 @@ import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.TaskAction;
 
-public abstract class CliTask extends Exec {
+public abstract class CommandLineTask extends Exec {
     //region Properties
 
     protected final Property<String>  source;
@@ -18,7 +18,7 @@ public abstract class CliTask extends Exec {
 
     //endregion
 
-    protected CliTask() {
+    protected CommandLineTask() {
         this.source  = this.getProject().getObjects().property(String.class);
         this.noColor = this.getProject().getObjects().property(Boolean.class);
     }

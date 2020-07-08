@@ -23,7 +23,7 @@ import org.gradle.internal.os.OperatingSystem;
 
 import org.slf4j.LoggerFactory;
 
-public abstract class StatefulTask extends CliTask {
+public abstract class StatefulTask extends CommandLineTask {
     private static final Logger LOGGER = (Logger)LoggerFactory.getLogger(StatefulTask.class);
 
     private static final String CREDENTIALS = "credentials \"%1$s\" {%n  token = \"%2$s\"%n}";

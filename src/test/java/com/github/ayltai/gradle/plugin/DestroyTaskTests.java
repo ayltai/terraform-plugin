@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public final class DestroyTaskTests extends CliTaskTests {
+public final class DestroyTaskTests extends CommandLineTaskTests {
     @BeforeEach
     @Override
     public void setUp() throws Exception {
@@ -16,7 +16,7 @@ public final class DestroyTaskTests extends CliTaskTests {
 
         final InitTask task = this.getTask(InitTask.TASK_NAME);
         task.useBackend.set(false);
-        task.source.set(CliTaskTests.SOURCE);
+        task.source.set(CommandLineTaskTests.SOURCE);
         task.exec();
     }
 
@@ -48,7 +48,7 @@ public final class DestroyTaskTests extends CliTaskTests {
     @Test
     public void testExec() {
         final DestroyTask task = this.getTask(DestroyTask.TASK_NAME);
-        task.source.set(CliTaskTests.SOURCE);
+        task.source.set(CommandLineTaskTests.SOURCE);
         task.exec();
 
         Assertions.assertTrue(task.getExecutionResult().isPresent());

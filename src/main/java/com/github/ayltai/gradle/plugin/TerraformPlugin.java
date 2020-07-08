@@ -142,6 +142,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
+                task.noColor.set(false);
             });
     }
 
@@ -152,6 +153,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
+                task.noColor.set(false);
             });
     }
 
@@ -162,6 +164,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
+                task.noColor.set(false);
                 task.workspace.set(extension.getWorkspace());
             });
     }
@@ -173,6 +176,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
+                task.noColor.set(false);
                 task.workspace.set(extension.getWorkspace());
             });
     }
@@ -184,6 +188,7 @@ public class TerraformPlugin implements Plugin<Project> {
                 task.dependsOn(DownloadTask.TASK_NAME);
 
                 task.source.set(extension.getSource());
+                task.noColor.set(false);
                 task.workspace.set(extension.getWorkspace());
             });
     }

@@ -84,6 +84,9 @@ terraform {
 }
 ```
 
+## Sample project
+[HKVPN](https://github/ayltai/hkvpn) is a Terraform project that uses this plugin. Check [build.gradle](https://github.com/ayltai/hkvpn/blob/master/build.gradle) for a sample configuration, and [README](https://github.com/ayltai/hkvpn/blob/master/README.md) for usage instructions.
+
 ## Supported tasks
 | Task                | Description |
 |---------------------|-------------|

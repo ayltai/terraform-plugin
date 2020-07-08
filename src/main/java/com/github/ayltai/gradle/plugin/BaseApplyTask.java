@@ -70,13 +70,6 @@ public abstract class BaseApplyTask extends StatefulTask {
         return this.targets;
     }
 
-    @Nonnull
-    @Optional
-    @Input
-    public NamedDomainObjectContainer<Variables> getVariables() {
-        return this.variables;
-    }
-
     //endregion
 
     @Nonnull

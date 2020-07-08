@@ -3,6 +3,7 @@ package com.github.ayltai.gradle.plugin;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import javax.annotation.Nonnull;
 
 import org.gradle.api.NamedDomainObjectContainer;
@@ -90,7 +91,14 @@ public abstract class BaseApplyTask extends StatefulTask {
 
                 variable.vars.forEach(var -> {
                     args.add("-var");
-                    args.add(String.format(Locale.US, "'%1$s=%2$s'", var.name, var.value));
+
+                    if (var.value instanceof Iterable) {
+                        args.add(String.format(Locale.US, "%1$s=%2$s", var.name, String.format(Locale.US, "[%s]", StreamSupport.stream(((Iterable<String>)var.value).spliterator(), false)
+                            .map(value -> String.format(Locale.US, "\"%s\"", value))
+                            .collect(Collectors.joining(",")))));
+                    } else {
+                        args.add(String.format(Locale.US, "%1$s=%2$s", var.name, var.value));
+                    }
                 });
             });
         }

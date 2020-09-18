@@ -77,7 +77,7 @@ buildscript {
 Example:
 ```groovy
 terraform {
-    toolVersion = '0.12.28'
+    toolVersion = '0.12.29'
     backend     = 'app.terraform.io'
     apiToken    = System.getenv('TERRAFORM_API_TOKEN')
     workspace   = 'main'

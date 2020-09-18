@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
@@ -18,12 +19,14 @@ public class InitTask extends StatefulTask {
 
     protected final Property<Boolean> useBackend;
     protected final Property<Boolean> upgrade;
+    protected final Property<String>  workspace;
 
     //endregion
 
     public InitTask() {
         this.useBackend = this.getProject().getObjects().property(Boolean.class);
         this.upgrade    = this.getProject().getObjects().property(Boolean.class);
+        this.workspace  = this.getProject().getObjects().property(String.class);
 
         this.setGroup(Constants.GROUP_BUILD_SETUP);
         this.setDescription("Initialize Terraform source scripts.");
@@ -43,6 +46,12 @@ public class InitTask extends StatefulTask {
     @Input
     public Property<Boolean> getUpgrade() {
         return this.upgrade;
+    }
+
+    @Nullable
+    @Internal
+    protected String getWorkspace() {
+        return this.workspace.getOrNull();
     }
 
     @Nonnull
@@ -67,5 +76,12 @@ public class InitTask extends StatefulTask {
         args.addAll(super.getCommandLineArgs());
 
         return args;
+    }
+
+    @Override
+    protected void exec() {
+        if (this.getWorkspace() != null) this.environment("TF_WORKSPACE", this.getWorkspace());
+
+        super.exec();
     }
 }

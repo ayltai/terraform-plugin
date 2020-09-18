@@ -29,7 +29,7 @@ Supports for executing [Terraform](https://www.terraform.io) [command-line tools
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```groovy
 plugins {
-    id 'com.github.ayltai.terraform-plugin' version '0.2.5'
+    id 'com.github.ayltai.terraform-plugin' version '0.2.13'
 }
 ```
 
@@ -43,7 +43,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'gradle.plugin.com.github.ayltai:terraform-plugin:0.2.5'
+        classpath 'gradle.plugin.com.github.ayltai:terraform-plugin:0.2.13'
     }
 }
 
@@ -54,7 +54,7 @@ apply plugin: 'com.github.ayltai.terraform-plugin'
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 ```groovy
 plugins {
-    id('com.github.ayltai.terraform-plugin') version '0.2.5'
+    id('com.github.ayltai.terraform-plugin') version '0.2.13'
 }
 ```
 
@@ -68,7 +68,7 @@ buildscript {
     }
 
     dependencies {
-        classpath('gradle.plugin.com.github.ayltai:terraform-plugin:0.2.5')
+        classpath('gradle.plugin.com.github.ayltai:terraform-plugin:0.2.13')
     }
 }
 ```

@@ -44,6 +44,7 @@ public class TerraformPlugin implements Plugin<Project> {
 
                 task.useBackend.set(options.useBackend);
                 task.upgrade.set(options.upgrade);
+                task.workspace.set(extension.getWorkspace());
 
                 TerraformPlugin.configureStatefulTask(task, extension, options);
             });

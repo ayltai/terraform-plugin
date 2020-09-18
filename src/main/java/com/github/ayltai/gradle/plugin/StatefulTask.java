@@ -117,7 +117,8 @@ public abstract class StatefulTask extends CommandLineTask {
             throw new ResourceException("Failed to save credentials to " + this.getCredentials().getAbsolutePath(), e);
         }
 
-        this.environment("TF_CLI_CONFIG_FILE", this.configFile.isPresent() ? this.configFile.getAsFile().get().getAbsolutePath() : this.getCredentials().getAbsolutePath());
+        this.environment("TF_CLI_CONFIG_FILE", this.configFile.isPresent() ? this.configFile.getAsFile().get().getAbsolutePath() : this.getCredentials().getAbsolutePath())
+            .environment("TF_IN_AUTOMATION", true);
 
         super.exec();
     }

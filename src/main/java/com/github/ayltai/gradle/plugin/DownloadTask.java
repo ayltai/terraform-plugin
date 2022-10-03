@@ -196,6 +196,9 @@ public class DownloadTask extends DefaultTask {
 
     protected void explodeZipEntry(@Nonnull final File outputDir, @Nonnull final JarFile jarFile, @Nonnull final ZipEntry entry) throws IOException {
         final File file = new File(outputDir, entry.getName());
+        if (!file.toPath().normalize().startsWith(outputDir.toPath().normalize())) {
+            throw new IOException("Bad zip entry");
+        }
 
         if (entry.isDirectory()) {
             if (!file.mkdirs()) throw new IOException("Failed to create folder(s): " + file.getAbsolutePath());
